@@ -9,10 +9,12 @@ urlpatterns = [
     path('', views.ProductView.as_view(), name='home'),
     path('product-detail/<int:pk>', views.ProductDetailView.as_view(), name='product-detail'),
 
-    # path('add-to-card/', views.add_to_cart, name='add-to-card'),
+    # path('card/', views.show_cart, name='showcart'),
 
 
     path('add-to-cart/', views.add_to_cart, name='add-to-cart'),
+    path('cart/', views.show_cart, name='showcart'),
+    path('pluscart/', views.plus_cart, name='pluscart'),
     path('buy/', views.buy_now, name='buy-now'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('address/', views.address, name='address'),
