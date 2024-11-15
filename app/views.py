@@ -60,7 +60,7 @@ def show_cart(request):
   
 def plus_cart(request):
  if request.method == 'GET':
-  prod_id = request.GETp['prod_id']
+  prod_id = request.GET['prod_id']
   print(prod_id)
   c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
   c.quantity+=1
@@ -72,15 +72,58 @@ def plus_cart(request):
   for p in cart_product:
     tempamount = (p.quantity * p.product.discounted_price)
     amount += tempamount
-    totalamount = amount + shipping_amount
+    # totalamount = amount + shipping_amount
 
   data = {
-     'quantity':c.quantity,
-     'amount':amount,
-     'totalamount':total_amount
+    'quantity':c.quantity,
+    'amount':amount,
+    'totalamount':amount + shipping_amount
     }
   return JsonResponse(data)
 
+def minus_cart(request):
+ if request.method == 'GET':
+  prod_id = request.GET['prod_id']
+  print(prod_id)
+  c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
+  c.quantity-=1
+  c.save()
+  amount = 0.0
+  shipping_amount = 70.0
+  total_amount = 0.0
+  cart_product = [p for p in Cart.objects.all() if p.user == request.user]
+  for p in cart_product:
+    tempamount = (p.quantity * p.product.discounted_price)
+    amount += tempamount
+    # totalamount = amount + shipping_amount
+
+  data = {
+    'quantity':c.quantity,
+    'amount':amount,
+    'totalamount':amount + shipping_amount
+    }
+  return JsonResponse(data)
+
+def remove_cart(request):
+ if request.method == 'GET':
+  prod_id = request.GET['prod_id']
+  print(prod_id)
+  c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
+  c.delete()
+  amount = 0.0
+  shipping_amount = 70.0
+  total_amount = 0.0
+  cart_product = [p for p in Cart.objects.all() if p.user == request.user]
+  for p in cart_product:
+    tempamount = (p.quantity * p.product.discounted_price)
+    amount += tempamount
+    # totalamount = amount
+
+  data = {
+    'amount':amount,
+    'totalamount':amount  + shipping_amount
+    }
+  return JsonResponse(data)
 
 def buy_now(request):
  return render(request, 'app/buynow.html')
@@ -92,7 +135,8 @@ def address(request):
  return render(request, 'app/address.html', {'add':add,'active':'btn-primary'})
 
 def orders(request):
- return render(request, 'app/orders.html')
+ op = OrderPlaced.objects.filter(user=request.user)
+ return render(request, 'app/orders.html', {'order_placed':op})
 
 # def change_password(request):
 #  return render(request, 'app/changepassword.html')
@@ -127,7 +171,29 @@ class CustomerRegistrationView(View):
 
 
 def checkout(request):
- return render(request, 'app/checkout.html')
+ user = request.user
+ add = Customer.objects.filter(user=user)
+ cart_items = Cart.objects.filter(user=user)
+ amount = 0.0
+ shipping_amount = 70.0
+ total_amount = 0.0
+ cart_product = [p for p in Cart.objects.all() if p.user == request.user]
+ if cart_product:
+  for p in cart_product:
+   tempamount = (p.quantity * p.product.discounted_price)
+   amount += tempamount
+  total_amount = amount + shipping_amount
+ return render(request, 'app/checkout.html',{'add':add,'totalamount':total_amount, 'cart_items':cart_items})
+
+def payment_done(request):
+ user = request.user
+ custid = request.GET.get('custid')
+ customer = Customer.objects.get(id=custid)
+ cart = Cart.objects.filter(user=user)
+ for c in cart:
+  OrderPlaced(user=user, customer=customer, product=c. product, quantity=c.quantity).save()
+  c.delete()
+ return redirect('orders')
 
 class ProfileView(View):
  def get(self,request):
