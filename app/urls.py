@@ -3,7 +3,10 @@ from app import views
 from django.conf import settings 
 from django.conf.urls.static import static 
 from django.contrib.auth import views as auth_views 
+from django.contrib.auth.views import LogoutView
 from .forms import LoginForm , MyPasswordChangeForm
+
+from django.contrib.auth import views as auth_views
 # from .views import CustomerRegistrationView
 urlpatterns = [
     path('', views.ProductView.as_view(), name='home'),
@@ -27,11 +30,20 @@ urlpatterns = [
     path('mobile/', views.mobile, name='mobile'),
     path('mobile/<slug:data>', views.mobile, name='mobiledata'),
     path('checkout/', views.checkout, name='checkout'),
-      path('paymentdone/', views.payment_done, name='paymentdone'),
+    path('paymentdone/', views.payment_done, name='paymentdone'),
+
 
     path('accounts/login/', auth_views.LoginView.as_view(template_name='app/login.html', authentication_form=LoginForm), name='login'),
+
+  
+
+
+    # path('logout/', auth_views.LogoutView.as_view(next_page='login'),name='logout'),
+    # path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     # path('accountss/login/', auth_views.LoginView.as_view(template_name='app/login.html', authentication_form=LoginForm), name='login'),
-    path('accounts/login/', auth_views.LogoutView.as_view(next_page='accounts/login/'), name='accounts/login/'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='login'),name='logout'),
+
+    # path('logout/', LogoutView.as_view(next_page='login'),name='logout'),
     path('passwordchange/', auth_views.PasswordChangeView.as_view(template_name='app/passwordchange.html',form_class=MyPasswordChangeForm), name='passwordchange'),
     path('registration/', views.CustomerRegistrationView.as_view(), name='customerregistration'),
   
