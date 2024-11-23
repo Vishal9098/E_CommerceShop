@@ -8,6 +8,9 @@ from .forms import LoginForm , MyPasswordChangeForm
 
 from django.contrib.auth import views as auth_views
 # from .views import CustomerRegistrationView
+
+from django.urls import path
+from .views import search_view
 urlpatterns = [
     path('', views.ProductView.as_view(), name='home'),
     path('product-detail/<int:pk>', views.ProductDetailView.as_view(), name='product-detail'),
@@ -31,6 +34,11 @@ urlpatterns = [
     path('mobile/<slug:data>', views.mobile, name='mobiledata'),
     path('checkout/', views.checkout, name='checkout'),
     path('paymentdone/', views.payment_done, name='paymentdone'),
+    # path('search/', views.search, name'search'),
+    # path('search', views.search, name='search'),
+    
+
+    path('search/', search_view, name='search'),
 
 
     path('accounts/login/', auth_views.LoginView.as_view(template_name='app/login.html', authentication_form=LoginForm), name='login'),
