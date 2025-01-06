@@ -1,5 +1,6 @@
+from django.shortcuts import render,  HttpResponse
 from django.shortcuts import render, redirect
-from django.views import View
+from django.views import View 
 from .models import Customer, Product, Cart, OrderPlaced
 from . forms import CustomerRegistrationsForm ,CustomerProfileForm
 from django.contrib import  messages
@@ -158,10 +159,9 @@ def address(request):
 
 
 
-def search_view(request):
-    query = request.GET.get('q', '')  # Get the search query from the GET parameters
-    results = Item.objects.filter(name__icontains=query) if query else []
-    return render(request, 'search.html', {'query': query, 'results': results})
+def search(request):
+ return HttpResponse('this is search')
+   
 
 
 
@@ -190,6 +190,21 @@ def mobile(request, data=None):
   mobiles = Product.objects.filter(category='M').filter(discounted_price__gt=10000)
  return render(request, 'app/mobile.html',{'mobiles':mobiles,'totalitem':totalitem})
 
+def topwear(request, data=None):
+ totalitem = 0
+ if request.user.is_authenticated:
+  totalitem = len(Cart.objects.filter(user=request.user))
+ if data == None:
+  topwears = Product.objects.filter(category='TW')
+ elif data == 'tshurt': # or data == 'Tshurt':
+  topwears = Product.objects.filter(category='TW').filter(brand=data)
+#  elif data == 'below':
+#   topwears = Product.objects.filter(category='TW').filter(discounted_price__lt=10000)
+#  elif data == 'above':
+#   topwears = Product.objects.filter(category='TW').filter(discounted_price__gt=10000)
+ return render(request, 'app/topwear.html',{'topwears':topwears,'totalitem':totalitem})
+  
+  
 # def login(request):
 #   return render(request, 'app/login.html')
 
@@ -229,8 +244,9 @@ def payment_done(request):
  custid = request.GET.get('custid')
  customer = Customer.objects.get(id=custid)
  cart = Cart.objects.filter(user=user)
+ print("Ttest",custid,customer,cart)
  for c in cart:
-  OrderPlaced(user=user, customer=customer, product=c. product, quantity=c.quantity).save()
+  OrderPlaced(user=user, customer=customer, product=c.product, quantity=c.quantity).save()
   c.delete()
  return redirect('orders')
 
@@ -254,3 +270,12 @@ class ProfileView(View):
    messages.success(request, 'Congratulations!! Profile Updated Successfully')
 
   return render(request, 'app/profile.html',{'form':form})
+
+
+# def logout(request):
+#  return render(request,'app/logout.html')
+
+
+def logout(request):
+    request.session.clear()
+    return redirect('login')
