@@ -5,6 +5,37 @@ from django.db import models
 # Create your models here.
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
+
+
+
+
+
+# chaat  gpt
+
+
+
+
+# class Product(models.Model):
+#     title = models.CharField(max_length=255)  # Previously 'name', should be 'title'
+#     description = models.TextField()
+#     brand = models.CharField(max_length=100)
+#     category = models.CharField(max_length=100)  # If it's a foreign key, use category__name
+#     discounted_price = models.FloatField()
+#     selling_price = models.FloatField()
+#     product_image = models.ImageField(upload_to='product_images/')
+
+
+
+
+
+
+# chat gpt yaha tak
+
+
+
+
+
+
 # Create your models here.
 
 from django.db import models

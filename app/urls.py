@@ -24,15 +24,30 @@ urlpatterns = [
     path('address/', views.address, name='address'),
     path('orders/', views.orders, name='orders'),
     path('mobile/', views.mobile, name='mobile'),
-    path('topwear/',views.topwear, name='topwear'),
-    path('topwear/<slug:data>',views.topwear, name='topwear'),
+   
     path('mobile/<slug:data>', views.mobile, name='mobiledata'),
     path('checkout/', views.checkout, name='checkout'),
     path('paymentdone/', views.payment_done, name='paymentdone'),
     path('logout/', views.logout, name='logout'),
-    path('search/', views.search, name='search'),
+    # path('search/', views.search, name='search'),
     # path('search', views.search, name='search'),
-    
+    # path('search/', views.search, name='search'),
+    path('search/', views.search, name='search'),
+    path('laptop/', views.laptop, name='laptop'),
+    path('laptop/<slug:data>', views.laptop, name='laptopdata'),
+    # path('topwear/<slug:data>',views.topwear, name='topweardata'),
+
+    # path('topwear/', views.topwear, name='topwear'),
+    path('topwear/', views.topwear, name='topwear'), 
+    path('topwear/<slug:data>', views.topwear, name='topweardata'),
+    path('bottomwear/', views.bottomwear, name='bottomwear'),
+    path('bottomwear/<slug:data>', views.bottomwear, name='bottomweardata'),
+   
+   
+  
+    # path('laptop/<slug:data>' , views.laptop, name='laptopdata'),
+    path('laptop/<slug:data>', views.laptop, name='laptopdata'),
+
 
     # path('search/', search_view, name='search'),
 

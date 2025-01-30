@@ -8,7 +8,8 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
+from django.shortcuts import render
+from django.db.models import Q
 from django.shortcuts import render
 from .models import Item
 # from .forms import LoginForm
@@ -159,8 +160,26 @@ def address(request):
 
 
 
-def search(request):
- return HttpResponse('this is search')
+
+# from django.shortcuts import render
+# from django.db.models import Q
+
+# def search(request):
+#     query = request.GET.get('q', '')  # Get the search query from the request
+#     totalitem = 0
+
+#     if request.user.is_authenticated:
+#         totalitem = len(Cart.objects.filter(user=request.user))
+
+#     if query:
+#         products = Product.objects.filter(
+#             Q(name__icontains=query) | Q(brand__icontains=query) | Q(description__icontains=query)
+#         )
+#     else:
+#         products = Product.objects.none()  # Return an empty QuerySet if no query is provided
+
+#     return render(request, 'app/search_results.html', {'products': products, 'query': query, 'totalitem': totalitem})
+
    
 
 
@@ -190,26 +209,50 @@ def mobile(request, data=None):
   mobiles = Product.objects.filter(category='M').filter(discounted_price__gt=10000)
  return render(request, 'app/mobile.html',{'mobiles':mobiles,'totalitem':totalitem})
 
+
+
+def laptop(request, data=None):
+ if data == None:
+  laptops = Product.objects.filter(category='L')
+ elif data == 'Dell' or data == 'HP':
+  laptops = Product.objects.filter(category='L').filter(brand=data)
+#  elif data == 'below':
+#   laptops = Product.objects.filter(category='L').filter(discounted_price__lt=10000)
+#  elif data == 'above':
+#   laptops = Product.objects.filter(category='L').filter(discounted_price__gt=10000)
+ 
+ return render(request, 'app/laptop.html',{'laptops':laptops})
+
+
+
+
+
 def topwear(request, data=None):
- totalitem = 0
- if request.user.is_authenticated:
-  totalitem = len(Cart.objects.filter(user=request.user))
  if data == None:
   topwears = Product.objects.filter(category='TW')
- elif data == 'tshurt': # or data == 'Tshurt':
+ elif data == 'nike' or data == 'adidas':
   topwears = Product.objects.filter(category='TW').filter(brand=data)
-#  elif data == 'below':
-#   topwears = Product.objects.filter(category='TW').filter(discounted_price__lt=10000)
-#  elif data == 'above':
-#   topwears = Product.objects.filter(category='TW').filter(discounted_price__gt=10000)
- return render(request, 'app/topwear.html',{'topwears':topwears,'totalitem':totalitem})
-  
-  
-# def login(request):
-#   return render(request, 'app/login.html')
+ return render(request, 'app/topwear.html',{'topwears' : topwears})
 
-# def customerregistration(request):
-#  return render(request, 'app/customerregistration.html')
+
+
+def bottomwear(request, data=None):
+    if data is None:
+        bottomwears = Product.objects.filter(category='BW')  # Correct variable name
+    elif data in ['nike', 'adidas']:  # Use a list for better readability
+        bottomwears = Product.objects.filter(category='BW', brand=data)  # Assign to bottomwears
+
+    return render(request, 'app/bottomwear.html', {'bottomwears': bottomwears})  # Ensure consistency
+
+
+# def bottomwear(request, data=None):
+#  if data == None:
+#   bottomwearwears = Product.objects.filter(category='BW')
+#  elif data == 'nike' or data == 'adidas':
+#   bottomwears = Product.objects.filter(category='BW').filter(brand=data)
+#  return render(request, 'app/bottomwear.html',{'bottomwears' : bottomwears})
+
+
 class CustomerRegistrationView(View):
  def get(self, request):
   form = CustomerRegistrationsForm()
@@ -279,3 +322,33 @@ class ProfileView(View):
 def logout(request):
     request.session.clear()
     return redirect('login')
+
+
+
+
+
+
+
+
+# from django.db.models import Q
+# from django.shortcuts import render
+# from .models import Product
+
+
+
+def search(request):
+    query = request.GET.get('q', '')  # Get search query from URL parameters
+    products = Product.objects.filter(
+        Q(title__icontains=query) | Q(description__icontains=query)
+    ) if query else Product.objects.none()  # Search in title and description
+
+    context = {
+        'query': query,
+        'products': products
+    }
+    return render(request, 'app/search.html', context)
+
+
+
+
+
