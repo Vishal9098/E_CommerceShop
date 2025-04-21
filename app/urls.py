@@ -8,6 +8,8 @@ from .forms import LoginForm , MyPasswordChangeForm
 
 from django.contrib.auth import views as auth_views
 # from .views import CustomerRegistrationView
+from django.conf import settings
+from django.conf.urls.static import static
 
 from django.urls import path
 # from .views import search_view
@@ -66,4 +68,32 @@ urlpatterns = [
     path('passwordchange/', auth_views.PasswordChangeView.as_view(template_name='app/passwordchange.html',form_class=MyPasswordChangeForm), name='passwordchange'),
     path('registration/', views.CustomerRegistrationView.as_view(), name='customerregistration'),
   
+
+
+    
+    path('product/<int:pk>/', views.ProductDetailView.as_view(), name='product_detail'),
+
+
+
+#   path('product/<int:pk>/', views.product_detail, name='product_detail')
+    path('search/', views.search, name='search'),
+    path('search/<str:query>/', views.search, name='search'),
+
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
