@@ -29,6 +29,7 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+CSRF_TRUSTED_ORIGINS = ['https://e-commerceshop-5.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',

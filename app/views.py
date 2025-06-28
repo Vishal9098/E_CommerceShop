@@ -25,6 +25,9 @@ from django.db.models import Q
 from .models import Product, Cart
 
 
+
+
+
 class ProductView(View):
  def get(self,request):
   totalitem = 0
@@ -329,42 +332,30 @@ def logout(request):
 
 
 
-
-# from django.shortcuts import render
-# from django.db.models import Q
-# from .models import Product, Cart
-
 # def search(request):
-#     query = request.GET.get('q', '')  # Get the search query from the request
+#     query = request.GET.get('q', '')
 #     totalitem = 0
-
 #     if request.user.is_authenticated:
-#         totalitem = Cart.objects.filter(user=request.user).count()  # Efficient count()
-
+#         totalitem = Cart.objects.filter(user=request.user).count()
 #     products = Product.objects.filter(
 #         Q(title__icontains=query) | 
 #         Q(brand__icontains=query) | 
 #         Q(description__icontains=query)
 #     ) if query else Product.objects.none()
-
 #     return render(request, 'app/search.html', {'products': products, 'query': query, 'totalitem': totalitem})
 
 
 
+
+
+
+# views.py
+from django.shortcuts import render
+from .models import Product
+
 def search(request):
-    query = request.GET.get('q', '')
-    totalitem = 0
-    if request.user.is_authenticated:
-        totalitem = Cart.objects.filter(user=request.user).count()
-    products = Product.objects.filter(
-        Q(title__icontains=query) | 
-        Q(brand__icontains=query) | 
-        Q(description__icontains=query)
-    ) if query else Product.objects.none()
-    return render(request, 'app/search.html', {'products': products, 'query': query, 'totalitem': totalitem})
-
-
-
-
-
-
+    query = request.GET.get('query')
+    products = []
+    if query:
+        products = Product.objects.filter(title__icontains=query)
+    return render(request, 'app/search.html', {'products': products, 'query': query})
