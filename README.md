@@ -6,4 +6,5 @@ Website Preview
 Home Page
 
 ![image alt](https://github.com/Vishal9098/E_CommerceShop/blob/904c4f9f0972f422adcde1a6b8f7b08e4e5ca9c4/Screenshot%20(19).png)
- ![image alt](https://github.com/Vishal9098/E_CommerceShop/blob/3f842bf50715f78008c1a128b9344120f1307215/Screenshot%20(23).png)
+![image alt](https://github.com/Vishal9098/E_CommerceShop/blob/3f842bf50715f78008c1a128b9344120f1307215/Screenshot%20(23).png)
+![image alt](https://github.com/Vishal9098/E_CommerceShop/blob/5a7a0efd1250add9314ba7077fc8a883ed77005b/Screenshot%20(24).png)
