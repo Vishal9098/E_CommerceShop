@@ -5,14 +5,10 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views 
 from django.contrib.auth.views import LogoutView
 from .forms import LoginForm , MyPasswordChangeForm
-
 from django.contrib.auth import views as auth_views
-# from .views import CustomerRegistrationView
 from django.conf import settings
 from django.conf.urls.static import static
-
 from django.urls import path
-# from .views import search_view
 urlpatterns = [
     path('', views.ProductView.as_view(), name='home'),
     path('product-detail/<int:pk>', views.ProductDetailView.as_view(), name='product-detail'),
@@ -26,62 +22,37 @@ urlpatterns = [
     path('address/', views.address, name='address'),
     path('orders/', views.orders, name='orders'),
     path('mobile/', views.mobile, name='mobile'),
-   
     path('mobile/<slug:data>', views.mobile, name='mobiledata'),
     path('checkout/', views.checkout, name='checkout'),
     path('paymentdone/', views.payment_done, name='paymentdone'),
     path('logout/', views.logout, name='logout'),
-    # path('search/', views.search, name='search'),
-    # path('search', views.search, name='search'),
-    # path('search/', views.search, name='search'),
     path('search/', views.search, name='search'),
     path('laptop/', views.laptop, name='laptop'),
     path('laptop/<slug:data>', views.laptop, name='laptopdata'),
-    # path('topwear/<slug:data>',views.topwear, name='topweardata'),
-
-    # path('topwear/', views.topwear, name='topwear'),
     path('topwear/', views.topwear, name='topwear'), 
     path('topwear/<slug:data>', views.topwear, name='topweardata'),
     path('bottomwear/', views.bottomwear, name='bottomwear'),
     path('bottomwear/<slug:data>', views.bottomwear, name='bottomweardata'),
-   
-   
-  
-    # path('laptop/<slug:data>' , views.laptop, name='laptopdata'),
     path('laptop/<slug:data>', views.laptop, name='laptopdata'),
-
-
-    # path('search/', search_view, name='search'),
-
-
     path('accounts/login/', auth_views.LoginView.as_view(template_name='app/login.html', authentication_form=LoginForm), name='login'),
-
-  
-
-
-    # path('logout/', auth_views.LogoutView.as_view(next_page='login'),name='logout'),
-    # path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    # path('accountss/login/', auth_views.LoginView.as_view(template_name='app/login.html', authentication_form=LoginForm), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'),name='logout'),
-
-    # path('logout/', LogoutView.as_view(next_page='login'),name='logout'),
     path('passwordchange/', auth_views.PasswordChangeView.as_view(template_name='app/passwordchange.html',form_class=MyPasswordChangeForm), name='passwordchange'),
     path('registration/', views.CustomerRegistrationView.as_view(), name='customerregistration'),
-  
-
-
-    
     path('product/<int:pk>/', views.ProductDetailView.as_view(), name='product_detail'),
-
-
-
-#   path('product/<int:pk>/', views.product_detail, name='product_detail')
     path('search/', views.search, name='search'),
     path('search/<str:query>/', views.search, name='search'),
 
-
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -18,15 +18,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .models import Product, Cart
 from django.urls import reverse
-
-
 from django.shortcuts import render
 from django.db.models import Q
 from .models import Product, Cart
-
-
-
-
 
 class ProductView(View):
  def get(self,request):
@@ -37,17 +31,6 @@ class ProductView(View):
   if request.user.is_authenticated:
     totalitem = len(Cart.objects.filter(user=request.user))
   return render(request, 'app/home.html', {'topwears':topwears, 'bottomwears':bottomwears,'mobiles':mobiles, 'totalitem':totalitem})
-
-
-
-# def product_detail(request):
-#  return render(request, 'app/productdetail.html')
-
-
-
-
-
-
 
 @method_decorator(login_required, name='dispatch')
 class ProductDetailView(View):
@@ -65,22 +48,6 @@ class ProductDetailView(View):
             'item_already_in_cart': item_already_in_cart, 
             'totalitem': totalitem
         })
-
-
-
-
-
-# class ProductDetailView(View):
-#  totalitem = 0
-#  def get(self,request,pk):
-#   product = Product.objects.get(pk=pk)
-#   item_already_in_cart = False
-#   if request.user.is_authenticated:
-#    totalitem = len(Cart.objects.filter(user=request.user))
-#   item_already_in_cart = Cart.objects.filter(Q(product=product.id) & Q(user=request.user)).exists()
-#   return render(request, 'app/productdetail.html', {'product':product, 'item_already_in_cart': item_already_in_cart, 'totalitem':totalitem})
-# @login_required
-
 
 def add_to_cart(request):
  user = request.user
@@ -108,7 +75,6 @@ def show_cart(request):
     tempamount = (p.quantity * p.product.discounted_price)
     amount += tempamount
     totalamount = amount + shipping_amount
-
 
    return render(request, 'app/addtocart.html', {'carts':cart, 'totalamount': totalamount, 'amount':amount, 'totalitem':totalitem})
   else:
@@ -193,21 +159,12 @@ def address(request):
  return render(request, 'app/address.html', {'add':add,'active':'btn-primary','totalitem':totalitem})
 @login_required
 
-
-
-
-
-
-
 def orders(request):
  totalitem = 0
  if request.user.is_authenticated:
   totalitem = len(Cart.objects.filter(user=request.user))
  op = OrderPlaced.objects.filter(user=request.user)
  return render(request, 'app/orders.html', {'order_placed':op,'totalitem':totalitem})
-
-# def change_password(request):
-#  return render(request, 'app/changepassword.html')
 
 def mobile(request, data=None):
  totalitem = 0
@@ -230,16 +187,7 @@ def laptop(request, data=None):
   laptops = Product.objects.filter(category='L')
  elif data == 'Dell' or data == 'HP':
   laptops = Product.objects.filter(category='L').filter(brand=data)
-#  elif data == 'below':
-#   laptops = Product.objects.filter(category='L').filter(discounted_price__lt=10000)
-#  elif data == 'above':
-#   laptops = Product.objects.filter(category='L').filter(discounted_price__gt=10000)
- 
  return render(request, 'app/laptop.html',{'laptops':laptops})
-
-
-
-
 
 def topwear(request, data=None):
  if data == None:
@@ -248,8 +196,6 @@ def topwear(request, data=None):
   topwears = Product.objects.filter(category='TW').filter(brand=data)
  return render(request, 'app/topwear.html',{'topwears' : topwears})
 
-
-
 def bottomwear(request, data=None):
     if data is None:
         bottomwears = Product.objects.filter(category='BW')  # Correct variable name
@@ -257,7 +203,6 @@ def bottomwear(request, data=None):
         bottomwears = Product.objects.filter(category='BW', brand=data)  # Assign to bottomwears
 
     return render(request, 'app/bottomwear.html', {'bottomwears': bottomwears})  # Ensure consistency
-
 
 class CustomerRegistrationView(View):
  def get(self, request):
@@ -320,38 +265,9 @@ class ProfileView(View):
 
   return render(request, 'app/profile.html',{'form':form})
 
-
-
-
 def logout(request):
     request.session.clear()
     return redirect('login')
-
-
-
-
-
-
-# def search(request):
-#     query = request.GET.get('q', '')
-#     totalitem = 0
-#     if request.user.is_authenticated:
-#         totalitem = Cart.objects.filter(user=request.user).count()
-#     products = Product.objects.filter(
-#         Q(title__icontains=query) | 
-#         Q(brand__icontains=query) | 
-#         Q(description__icontains=query)
-#     ) if query else Product.objects.none()
-#     return render(request, 'app/search.html', {'products': products, 'query': query, 'totalitem': totalitem})
-
-
-
-
-
-
-# views.py
-from django.shortcuts import render
-from .models import Product
 
 def search(request):
     query = request.GET.get('query')
