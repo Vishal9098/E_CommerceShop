@@ -197,4 +197,8 @@ wrapt==1.17.2
 zope.interface==7.2
 tensorflow==2.18.0
 numpy==1.26.1
+dlib==19.24.2
+pillow==10.2.0
+opencv-python==4.9.0.80
+
 
