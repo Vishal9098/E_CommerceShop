@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-CSRF_TRUSTED_ORIGINS = ['https://e-commerceshop-5.onrender.com']
+# CSRF_TRUSTED_ORIGINS = ['https://e-commerceshop-5.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -138,10 +138,6 @@ SESSION_ENGINE = "django.contrib.sessions.backends.db"
 
 
 
-import os
-
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 
 
