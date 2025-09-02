@@ -34,6 +34,20 @@
     <div class="col-12 col-md-9">
       <div class="row">
         {% for product in topwears %}
-        <div class="col-6 col-md-4 text-center mb-4">
-          <a href="{% url 'product-detail' product.id %}" class="text-decoration-none text-dark">
-            <div class="card h
+          <div class="col-6 col-md-4 text-center mb-4">
+            <a href="{% url 'product-detail' product.id %}" class="text-decoration-none text-dark">
+              <div class="card h-100 shadow-sm">
+                <img src="{{ product.product_image.url }}" class="card-img-top" alt="{{ product.title }}">
+                <div class="card-body">
+                  <h6 class="card-title">{{ product.title }}</h6>
+                  <p class="card-text">Rs. {{ product.discounted_price }}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main-content %}
