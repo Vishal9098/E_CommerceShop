@@ -3,7 +3,7 @@
 {% block title %}Home{% endblock title %}
 
 {% block banner_slider %}
-<!--Banner Slider-->
+<!-- Banner Slider -->
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -47,13 +47,14 @@
 <!-- 1st Product Slider -->
 <div class="m-3">
   <h2>Shoppingly Bottom Wears</h2>
-  <!-- Slider 1 -->
   <div class="owl-carousel" id="slider1">
     {% for b in bottomwears %}
     <a href="{% url 'product-detail' b.id %}" class="btn">
-      <div class="item">
-        <img src="{{ b.product_image.url }}" alt="" height="200px">
-        <span class="fw-bold">{{ b.title }}</span><br>
+      <div class="item text-center p-3">
+        <img src="{{ b.product_image.url }}" alt="{{ b.title }}" 
+             class="img-fluid" 
+             style="height:200px; object-fit:contain;">
+        <span class="fw-bold d-block mt-2">{{ b.title }}</span><br>
         <span class="fs-5">Rs. {{ b.discounted_price }}</span>
       </div>
     </a>
@@ -103,9 +104,11 @@
   <div class="owl-carousel" id="slider2">
     {% for tp in topwears %}
     <a href="{% url 'product-detail' tp.id %}" class="btn">
-      <div class="item">
-        <img src="{{ tp.product_image.url }}" alt="" height="200px">
-        <span class="fw-bold">{{ tp.title }}</span><br>
+      <div class="item text-center p-3">
+        <img src="{{ tp.product_image.url }}" alt="{{ tp.title }}" 
+             class="img-fluid" 
+             style="height:200px; object-fit:contain;">
+        <span class="fw-bold d-block mt-2">{{ tp.title }}</span><br>
         <span class="fs-5">Rs. {{ tp.discounted_price }}</span>
       </div>
     </a>
@@ -113,19 +116,22 @@
   </div>
 </div>
 
+<!-- 3rd Product Slider -->
 <div class="mx-3">
   <h2>Shoppingly Mobiles</h2>
   <div class="owl-carousel" id="slider3">
     {% for m in mobiles %}
     <a href="{% url 'product-detail' m.id %}" class="btn">
-      <div class="item">
-        <img src="{{ m.product_image.url }}" alt="" height="200px">
-        <span class="fw-bold">{{ m.title }}</span><br>
+      <div class="item text-center p-3">
+        <img src="{{ m.product_image.url }}" alt="{{ m.title }}" 
+             class="img-fluid" 
+             style="height:200px; object-fit:contain;">
+        <span class="fw-bold d-block mt-2">{{ m.title }}</span><br>
         <span class="fs-5">Rs. {{ m.discounted_price }}</span>
       </div>
     </a>
     {% endfor %}
   </div>
 </div>
-<!-- End 2nd Product Slider -->
+<!-- End 3rd Product Slider -->
 {% endblock main-content %}

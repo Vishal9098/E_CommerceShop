@@ -19,3 +19,23 @@
  font-size: 24px;
  font-weight: bold;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+.item img {
+    max-height: 200px;   /* image ki max height set kar */
+    object-fit: contain; /* image ko distort nahi karega */
+}
+.item {
+    text-align: center; /* text center karega */
+}

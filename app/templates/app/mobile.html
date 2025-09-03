@@ -22,13 +22,13 @@
         {% for product in mobiles %}
         <div class="col-6 col-sm-4 col-md-6 col-lg-4 text-center mb-4">
           <a href="{% url 'product-detail' product.id %}" class="text-decoration-none text-dark">
-            <div class="card h-100">
-              <img src="{{product.product_image.url}}" class="card-img-top" alt="{{product.tittle}}" style="height: 200px; object-fit: contain;">
+            <div class="card h-100 shadow-sm">
+              <img src="{{ product.product_image.url }}" class="card-img-top" alt="{{ product.title }}" style="height: 200px; object-fit: contain;">
               <div class="card-body">
-                <h6 class="card-title fw-bold">{{product.tittle}}</h6>
+                <h6 class="card-title fw-bold">{{ product.title }}</h6>
                 <p class="card-text fw-bold">
-                  Rs. {{product.discounted_price}} 
-                  <small class="text-decoration-line-through text-muted">{{product.selling_price}}</small>
+                  Rs. {{ product.discounted_price }} 
+                  <small class="text-decoration-line-through text-muted">{{ product.selling_price }}</small>
                 </p>
               </div>
             </div>

@@ -14,16 +14,17 @@
         </button>
         <div class="collapse mt-2" id="mobileFilter">
           <div class="list-group">
-            <a href="{% url 'topwear'%}" class="list-group-item list-group-item-action">All TopWear</a>
+            <a href="{% url 'topwear' %}" class="list-group-item list-group-item-action">All TopWear</a>
             <a href="{% url 'topweardata' 'nike' %}" class="list-group-item list-group-item-action">Nike</a>
             <a href="{% url 'topweardata' 'adidas' %}" class="list-group-item list-group-item-action">Adidas</a>
           </div>
         </div>
       </div>
+
       <!-- Desktop Sidebar -->
       <div class="d-none d-md-block">
         <div class="list-group">
-          <a href="{% url 'topwear'%}" class="list-group-item list-group-item-action">All TopWear</a>
+          <a href="{% url 'topwear' %}" class="list-group-item list-group-item-action">All TopWear</a>
           <a href="{% url 'topweardata' 'nike' %}" class="list-group-item list-group-item-action">Nike</a>
           <a href="{% url 'topweardata' 'adidas' %}" class="list-group-item list-group-item-action">Adidas</a>
         </div>
@@ -34,17 +35,22 @@
     <div class="col-12 col-md-9">
       <div class="row">
         {% for product in topwears %}
-          <div class="col-6 col-md-4 text-center mb-4">
-            <a href="{% url 'product-detail' product.id %}" class="text-decoration-none text-dark">
-              <div class="card h-100 shadow-sm">
-                <img src="{{ product.product_image.url }}" class="card-img-top" alt="{{ product.title }}">
-                <div class="card-body">
-                  <h6 class="card-title">{{ product.title }}</h6>
-                  <p class="card-text">Rs. {{ product.discounted_price }}</p>
-                </div>
+        <div class="col-6 col-md-4 text-center mb-4">
+          <a href="{% url 'product-detail' product.id %}" class="text-decoration-none text-dark">
+            <div class="card h-100 shadow-sm">
+              <img src="{{ product.product_image.url }}" class="card-img-top img-fluid" alt="{{ product.title }}" style="height: 200px; object-fit: contain;">
+              <div class="card-body">
+                <h6 class="card-title fw-bold">{{ product.title }}</h6>
+                <p class="card-text fw-bold">
+                  Rs. {{ product.discounted_price }}
+                  {% if product.selling_price %}
+                    <small class="text-muted text-decoration-line-through">{{ product.selling_price }}</small>
+                  {% endif %}
+                </p>
               </div>
-            </a>
-          </div>
+            </div>
+          </a>
+        </div>
         {% endfor %}
       </div>
     </div>
