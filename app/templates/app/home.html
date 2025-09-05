@@ -5,9 +5,6 @@
 
 
 
-
-
-
 {% extends 'app/base.html' %}
 {% load static %}
 {% block title %}Home{% endblock title %}
@@ -62,7 +59,7 @@
     <a href="{% url 'product-detail' b.id %}" class="btn">
       <div class="item text-center p-3">
         <img src="{{ b.product_image.url }}" alt="{{ b.title }}" 
-             class="img-fluid" 
+             class="img-fluid mobile-product-img" 
              style="height:200px; object-fit:contain;">
         <span class="fw-bold d-block mt-2">{{ b.title }}</span><br>
         <span class="fs-5">Rs. {{ b.discounted_price }}</span>
@@ -116,7 +113,7 @@
     <a href="{% url 'product-detail' tp.id %}" class="btn">
       <div class="item text-center p-3">
         <img src="{{ tp.product_image.url }}" alt="{{ tp.title }}" 
-             class="img-fluid" 
+             class="img-fluid mobile-product-img" 
              style="height:200px; object-fit:contain;">
         <span class="fw-bold d-block mt-2">{{ tp.title }}</span><br>
         <span class="fs-5">Rs. {{ tp.discounted_price }}</span>
@@ -134,7 +131,7 @@
     <a href="{% url 'product-detail' m.id %}" class="btn">
       <div class="item text-center p-3">
         <img src="{{ m.product_image.url }}" alt="{{ m.title }}" 
-             class="img-fluid" 
+             class="img-fluid mobile-product-img" 
              style="height:200px; object-fit:contain;">
         <span class="fw-bold d-block mt-2">{{ m.title }}</span><br>
         <span class="fs-5">Rs. {{ m.discounted_price }}</span>
@@ -144,4 +141,48 @@
   </div>
 </div>
 <!-- End 3rd Product Slider -->
+
+<style>
+  /* Mobile-specific styles */
+  @media (max-width: 768px) {
+    .owl-carousel .item {
+      width: 100% !important;
+      margin: 0 5px;
+    }
+    
+    .mobile-product-img {
+      max-width: 80%;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  // Initialize Owl Carousel with responsive settings
+  $(document).ready(function(){
+    // Common configuration for all sliders
+    var sliderConfig = {
+      loop: true,
+      margin: 10,
+      nav: true,
+      responsive: {
+        0: {
+          items: 1  // Show only 1 product on mobile (0-600px)
+        },
+        600: {
+          items: 3  // Show 3 products on tablets (600px+)
+        },
+        1000: {
+          items: 5  // Show 5 products on desktop (1000px+)
+        }
+      }
+    };
+    
+    // Initialize all sliders with the same configuration
+    $("#slider1").owlCarousel(sliderConfig);
+    $("#slider2").owlCarousel(sliderConfig);
+    $("#slider3").owlCarousel(sliderConfig);
+  });
+</script>
 {% endblock main-content %}
