@@ -157,6 +157,14 @@ def address(request):
   totalitem = len(Cart.objects.filter(user=request.user))
  add = Customer.objects.filter(user=request.user)
  return render(request, 'app/address.html', {'add':add,'active':'btn-primary','totalitem':totalitem})
+
+
+
+
+
+
+
+
 @login_required
 
 def orders(request):
