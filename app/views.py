@@ -151,7 +151,7 @@ def buy_now(request):
  return render(request, 'app/buynow.html')
 @login_required
 
-def address(request):
+def address(request):  
  totalitem = 0
  if request.user.is_authenticated:
   totalitem = len(Cart.objects.filter(user=request.user))
