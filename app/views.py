@@ -158,7 +158,7 @@ def address(request):
  add = Customer.objects.filter(user=request.user)
  return render(request, 'app/address.html', {'add':add,'active':'btn-primary','totalitem':totalitem})
 
-
+  
 
 
 
