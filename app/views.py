@@ -7,7 +7,7 @@ from django.contrib import  messages
 from django.db.models import Q
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
+from django.utils.decorators import method_decorator  
 from django.shortcuts import render
 from django.db.models import Q  
 from django.shortcuts import render
